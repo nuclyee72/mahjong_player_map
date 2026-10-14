@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>마작 궤도</title>
+  <meta name="description" content="대국 기록으로 본 그릴마당 마작 플레이어들의 성향 지도">
+  <link rel="stylesheet" href="css/style.css">
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+
+<body>
+  <div id="scene"></div>
+
+  <header class="topbar">
+    <a href="/" class="icon-btn" aria-label="홈으로" title="홈으로">🏠</a>
+    <div class="title-block">
+      <h1>마작 궤도</h1>
+      <p id="subtitle">대국 기록으로 그린 성향 지도</p>
+    </div>
+    <form id="search-form" class="search" autocomplete="off">
+      <input id="search-input" type="search" list="player-list" placeholder="내 이름 찾기" aria-label="플레이어 이름 검색">
+      <datalist id="player-list"></datalist>
+      <button type="submit" aria-label="찾기">찾기</button>
+    </form>
+    <button id="help-btn" class="icon-btn" type="button" aria-label="설명 보기" title="이 지도는?">?</button>
+  </header>
+
+  <div id="intro" class="intro">
+    <p class="intro-main">이름을 검색해 내 위치를 찾아보세요</p>
+    <p class="intro-sub">가까이 떠 있을수록 치는 방식이 닮은 사람이에요 · 드래그로 회전, 휠/핀치로 확대</p>
+  </div>
+
+  <aside id="panel" class="panel" hidden>
+    <button id="panel-close" class="panel-close" type="button" aria-label="닫기">×</button>
+    <div id="panel-body"></div>
+  </aside>
+
+  <div id="compare" class="compare" hidden></div>
+
+  <dialog id="help" class="help">
+    <h2>이 지도는?</h2>
+    <p>대국 기록(점수·착순·시간·동탁자)으로 플레이어마다 성향 지표 25개를 계산하고, 그 지표가 비슷한 사람끼리 가깝게 놓이도록 3D 공간에 펼쳤습니다.</p>
+    <ul>
+      <li><b>위치</b> — 점수 기복, 대톱률, 토비율, 원점 부근 종국률, 연속 연대, 대국 시간대, 연속 대국 습관, 동탁자 분포 등</li>
+      <li><b>작은 별</b> — 성향이 비슷한 사람들이 모인 무리의 중심. 사람들은 무리의 작은 별을, 무리는 가운데 큰 별을 각자 조금씩 기울어진 궤도로 돌아요.</li>
+      <li><b>밝기</b> — 실력(평균 pt). 위치는 성향 위주로 정해집니다.</li>
+      <li><b>크기</b> — 판 수</li>
+      <li><b>흐릿한 점</b> — 10~19판으로 아직 관측 중. 20판이 넘으면 위치가 지도 학습에 반영돼요.</li>
+      <li><b>관계</b> — 단짝(가장 많이 동탁), 라이벌(동탁한 판에서 5:5로 팽팽). 같은 판에서 누가 더 높은 착순이었는지로 셉니다.</li>
+    </ul>
+    <p id="help-meta" class="muted"></p>
+    <form method="dialog"><button>닫기</button></form>
+  </dialog>
+
+  <div id="loading" class="loading">불러오는 중…</div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+
+</html>
